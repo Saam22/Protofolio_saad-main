@@ -1,0 +1,168 @@
+.education-section {
+  padding: 120px 0;
+}
+.edu-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 720px;
+  margin: 0 auto 64px;
+}
+.edu-card {
+  padding: 24px 28px;
+  border-left: 3px solid var(--p);
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s var(--ease);
+}
+.edu-card:hover {
+  border-left-color: var(--p);
+}
+.edu-icon {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 36px; height: 36px;
+  border-radius: var(--r2);
+  background: var(--p-glow);
+  border: 1px solid var(--bd-p);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--p);
+  font-size: 1rem;
+}
+.edu-degree {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--tx);
+  margin-bottom: 5px;
+  padding-right: 48px;
+}
+.edu-institution {
+  font-size: 0.92rem;
+  color: var(--p);
+  margin-bottom: 4px;
+}
+.edu-dept {
+  font-size: 0.85rem;
+  color: var(--tx2);
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+.edu-meta {
+  display: flex;
+  gap: 20px;
+  font-size: 0.8rem;
+  color: var(--tx3);
+}
+.edu-meta svg { margin-right: 3px; vertical-align: middle; }
+
+/* ─── CERTIFICATES ──────────────────────── */
+.certificates-section {
+  padding: 120px 0;
+  position: relative;
+}
+.certificates-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bd2), transparent);
+}
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+.cert-card {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.3s, transform 0.3s var(--ease);
+}
+.cert-icon {
+  width: 38px; height: 38px;
+  border-radius: var(--r2);
+  background: var(--p-glow);
+  border: 1px solid var(--bd-p);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--p);
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+.cert-title {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--tx);
+  line-height: 1.4;
+}
+.cert-issuer {
+  font-size: 0.82rem;
+  color: var(--tx2);
+  font-weight: 400;
+}
+.cert-date {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: var(--bg3);
+  border-radius: var(--r-full);
+  font-size: 0.73rem;
+  color: var(--tx3);
+  width: fit-content;
+}
+
+/* ─── COURSES ─────────────────────────────── */
+.courses-section {
+  padding: 120px 0;
+}
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+.course-card {
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: border-color 0.3s, transform 0.3s var(--ease);
+}
+.course-icon {
+  width: 34px; height: 34px;
+  border-radius: var(--r3);
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--s);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.course-card h3 {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--tx);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+.course-badge {
+  font-size: 0.72rem;
+  color: var(--s);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}

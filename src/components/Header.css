@@ -1,0 +1,190 @@
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent;
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.header.scrolled {
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border-bottom: 1px solid var(--bd);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--tx);
+  text-decoration: none;
+  letter-spacing: -0.04em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-brand-icon {
+  font-size: 1.2rem;
+  color: var(--p);
+}
+.nav-brand span { color: var(--p); }
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 4px;
+}
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  text-decoration: none;
+  color: var(--tx2);
+  font-size: 0.88rem;
+  font-weight: 400;
+  border-radius: var(--r3);
+  border: 1px solid transparent;
+  position: relative;
+  transition: color 0.25s, background 0.25s, border-color 0.25s;
+}
+.nav-link:hover {
+  color: var(--tx);
+  background: var(--bg3);
+}
+.nav-link.active {
+  color: var(--p);
+  background: var(--p-glow);
+  border-color: var(--bd-p);
+}
+
+/* Animated underline */
+.nav-underline {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--p), var(--s));
+  border-radius: 2px;
+  transition: width 0.35s var(--ease), left 0.35s var(--ease);
+  pointer-events: none;
+}
+.nav-link:hover .nav-underline {
+  width: 60%;
+  left: 20%;
+}
+.nav-link.active .nav-underline {
+  width: 80%;
+  left: 10%;
+}
+
+.nav-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--p);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s, transform 0.3s var(--spring);
+}
+.nav-link.active .nav-indicator {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.theme-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--bd);
+  color: var(--tx2);
+  font-size: 1rem;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+}
+.theme-btn:hover {
+  border-color: var(--p);
+  color: var(--p);
+}
+
+.nav-toggle {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r3);
+  background: var(--bg3);
+  border: 1px solid var(--bd);
+  color: var(--tx);
+  font-size: 1.1rem;
+  cursor: none;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+}
+
+/* ─── MOBILE ────────────────────────────────── */
+@media (max-width: 768px) {
+  .mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+  .nav-toggle { display: flex; }
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(320px, 80vw);
+    height: 100vh;
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
+    backdrop-filter: blur(32px) saturate(1.6);
+    -webkit-backdrop-filter: blur(32px) saturate(1.6);
+    flex-direction: column;
+    padding: 80px 24px 28px;
+    gap: 4px;
+    border-left: 1px solid var(--bd);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.4s var(--ease-out), opacity 0.4s var(--ease-out);
+    pointer-events: none;
+    border-radius: 0;
+    box-shadow: -8px 0 32px rgba(0,0,0,0.2);
+  }
+  .nav-menu.active {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+  .nav-link {
+    font-size: 1rem;
+    padding: 12px 16px;
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: var(--r2);
+  }
+  .nav-link-text {
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+  .nav-underline { display: none; }
+}

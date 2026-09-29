@@ -1,0 +1,15 @@
+{
+  "short_name": "SaadDev",
+  "name": "Saad Mohamed Hassan | Full-Stack Developer",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#05080f",
+  "background_color": "#05080f"
+}

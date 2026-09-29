@@ -47,7 +47,7 @@
 /* ─── GRID ──────────────────────────────── */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
   gap: 28px;
   position: relative;
   z-index: 2;
@@ -565,9 +565,10 @@
   padding: 40px;
 }
 .preview-modal {
-  width: 90vw;
+  width: 90%;
   max-width: 1200px;
   height: 85vh;
+  height: 85dvh;
   max-height: 800px;
   display: flex;
   flex-direction: column;
@@ -578,8 +579,9 @@
   box-shadow: 0 32px 80px rgba(0,0,0,0.5);
 }
 .preview-modal.fullscreen {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  height: 100dvh;
   max-width: none;
   max-height: none;
   border-radius: 0;
@@ -723,9 +725,10 @@
   padding: 40px;
 }
 .project-modal {
-  width: 90vw;
+  width: 90%;
   max-width: 1100px;
   max-height: 85vh;
+  max-height: 85dvh;
   overflow-y: auto;
   padding: 0;
   position: relative;
@@ -851,15 +854,47 @@
 /* ─── RESPONSIVE ──────────────────────────────── */
 @media (max-width: 900px) {
   .projects-toolbar { flex-direction: column; align-items: stretch; }
-  .search-wrap { max-width: 100%; }
+  .search-wrap { flex: none; max-width: 100%; }
   .preview-modal-overlay { padding: 16px; }
-  .preview-modal { width: 100vw; height: 100vh; border-radius: 0; }
+  .preview-modal {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+  }
   .project-modal-layout { grid-template-columns: 1fr; }
   .project-modal-preview { min-height: 250px; border-right: none; border-bottom: 1px solid var(--bd); }
   .project-modal-overlay { padding: 16px; }
+  .project-modal { width: 100%; max-height: 100vh; max-height: 100dvh; }
 }
 @media (max-width: 768px) {
-  .projects-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; gap: 20px; }
   .project-body { padding: 20px; }
   .preview-modal-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+}
+@media (max-width: 560px) {
+  .projects-sub { font-size: 0.94rem; }
+  .projects-grid { gap: 18px; }
+  .project-image-wrap { height: 180px; }
+  .project-body { padding: 18px; }
+  .carousel-btn { width: 28px; height: 28px; }
+  .carousel-prev { left: 8px; }
+  .carousel-next { right: 8px; }
+  .preview-modal-header { padding: 12px 16px; }
+  .preview-modal-title { font-size: 1rem; }
+  .preview-modal-actions { flex-wrap: wrap; }
+  .preview-modal-footer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    padding: 12px 16px;
+  }
+  .preview-footer-links { justify-content: center; }
+  .project-modal-content { padding: 20px; gap: 14px; }
+  .project-modal-title { font-size: 1.3rem; }
+  .project-modal-preview { min-height: 200px; }
+  .project-modal-links { flex-wrap: wrap; }
+  .project-modal-links .btn { width: auto; flex: 1 1 auto; }
 }

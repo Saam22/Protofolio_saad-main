@@ -13,6 +13,7 @@
   border-left: 3px solid var(--p);
   position: relative;
   transition: border-color 0.3s, transform 0.3s var(--ease);
+  overflow-wrap: break-word;
 }
 .edu-card:hover {
   border-left-color: var(--p);
@@ -72,7 +73,7 @@
 }
 .certs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 16px;
   position: relative;
   z-index: 1;
@@ -127,7 +128,7 @@
 }
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
   gap: 14px;
   position: relative;
   z-index: 1;
@@ -165,4 +166,31 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+}
+
+/* ─── RESPONSIVE ──────────────────────────── */
+@media (max-width: 900px) {
+  .edu-grid { margin-bottom: 48px; }
+}
+
+@media (max-width: 560px) {
+  .edu-card { padding: 18px 18px 18px 20px; }
+  .edu-icon {
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+  .edu-degree { padding-right: 42px; font-size: 0.98rem; }
+  .edu-institution { font-size: 0.86rem; }
+  .edu-dept { font-size: 0.8rem; }
+  .edu-meta {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.76rem;
+  }
+  .cert-card { padding: 18px; }
+  .course-card { padding: 16px; gap: 12px; }
+  .course-icon { width: 30px; height: 30px; font-size: 0.9rem; }
 }

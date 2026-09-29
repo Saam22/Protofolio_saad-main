@@ -52,6 +52,7 @@
   color: var(--tx2);
   border: 1px solid transparent;
   transition: all 0.25s;
+  overflow-wrap: anywhere;
 }
 .contact-item:hover { background: var(--bg3); border-color: var(--bd); color: var(--tx); }
 .ci-icon {
@@ -96,7 +97,7 @@
 
 /* ─── FORM ──────────────────────────────── */
 .contact-form {
-  padding: 32px;
+  padding: clamp(20px, 4vw, 32px);
 }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-group { margin-bottom: 16px; }
@@ -161,7 +162,7 @@
   font-family: var(--font-body);
   font-size: 0.92rem;
   font-weight: 600;
-  cursor: none;
+  cursor: pointer;
   transition: all 0.25s var(--ease);
   display: inline-flex;
   align-items: center;
@@ -178,6 +179,14 @@
 @media (max-width: 900px) {
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .form-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .contact-sub { margin-bottom: 24px; font-size: 0.9rem; }
+  .contact-item { padding: 11px 12px; gap: 11px; }
+  .ci-icon { width: 34px; height: 34px; font-size: 0.9rem; }
+  .ci-value { font-size: 0.82rem; }
+  .form-group { margin-bottom: 14px; }
 }
 
 /* ─── FOOTER ──────────────────────────────── */
@@ -225,4 +234,9 @@
 }
 .footer-bottom { text-align: center; font-size: 0.8rem; color: var(--tx3); }
 
-@media (max-width: 600px) { .footer-top { flex-direction: column; gap: 20px; text-align: center; } }
+@media (max-width: 600px) {
+  .footer { padding: 40px 0 24px; }
+  .footer-top { flex-direction: column; gap: 20px; text-align: center; }
+  .footer-brand h3 { font-size: 1.25rem; }
+  .footer-bottom { font-size: 0.75rem; }
+}

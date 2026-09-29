@@ -10,7 +10,6 @@ import Projects from './components/Projects';
 import { Education, Certificates, Courses } from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import Cursor from './components/Cursor';
 import BackToTop from './components/BackToTop';
 import { MotionSection, fadeInUp } from './animations';
 import './App.css';
@@ -107,7 +106,6 @@ function App() {
 
   return (
     <>
-      <Cursor />
       <AnimatePresence>
         {loading && <LoadingScreen onFinish={() => setLoading(false)} />}
       </AnimatePresence>

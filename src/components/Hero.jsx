@@ -284,7 +284,7 @@ const Hero = () => {
             <Scanlines />
             <div className="win-header">
               <span className="win-dot r" /><span className="win-dot y" /><span className="win-dot g" />
-              <span className="win-tab">developer.ts</span>
+              <span className="win-tab">developer.js</span>
             </div>
             <pre className="code-content">
               <span className="kw">const</span> developer = {'{'}{'\n'}

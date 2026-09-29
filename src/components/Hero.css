@@ -48,6 +48,7 @@
 
 .hero-section {
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   position: relative;
@@ -79,6 +80,7 @@
   position: relative;
   z-index: 2;
   padding-top: 40px;
+  width: 100%;
 }
 
 .hero-text {
@@ -105,12 +107,13 @@
 
 .hero-name-line {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6.5vw, 5.2rem);
+  font-size: clamp(2.5rem, 6.5vw, 5.2rem);
   font-weight: 800;
   letter-spacing: -0.06em;
   color: var(--tx);
   display: block;
   transform-origin: left center;
+  overflow-wrap: break-word;
 }
 
 .hero-name-line:last-child {
@@ -194,6 +197,7 @@
 .hero-stats {
   display: flex;
   gap: 44px;
+  flex-wrap: wrap;
 }
 
 .stat-item {
@@ -366,15 +370,20 @@
     order: 0;
     max-width: 520px;
     margin: 0 auto;
+    width: 100%;
   }
 
   .hero-name-line {
-    font-size: clamp(2.6rem, 8vw, 3.8rem);
+    font-size: clamp(2.2rem, 8vw, 3.8rem);
     text-align: center;
   }
 
   .hero-name-line:last-child {
     transform-origin: center;
+  }
+
+  .hero-role {
+    font-size: 1rem;
   }
 
   .hero-desc {
@@ -398,14 +407,61 @@
   }
 }
 
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto;
+    padding: 100px 0 60px;
+  }
+  .hero-content {
+    padding-top: 0;
+    gap: 40px;
+  }
+  .hero-actions { margin-bottom: 36px; }
+  .code-content { padding: 16px; font-size: 0.72rem; line-height: 1.8; }
+  .win-header { padding: 12px 14px; }
+}
+
 @media (max-width: 540px) {
   .hero-stats {
-    gap: 28px;
+    gap: 20px 28px;
   }
 
   .stat-num {
     font-size: 1.4rem;
   }
+
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-name {
+    margin-bottom: 16px;
+  }
+
+  .hero-role {
+    margin-bottom: 18px;
+  }
+
+  .hero-desc {
+    margin-bottom: 28px;
+    font-size: 0.94rem;
+  }
+
+  .status-card {
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-stats {
+    gap: 16px 20px;
+  }
+  .stat-num { font-size: 1.2rem; }
+  .stat-label { font-size: 0.66rem; }
+  .code-content { font-size: 0.66rem; padding: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

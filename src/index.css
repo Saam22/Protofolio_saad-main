@@ -132,12 +132,37 @@ body {
   color: var(--tx);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
+  -webkit-tap-highlight-color: transparent;
 }
 [data-theme="light"] body {
   line-height: 1.65;
 }
-a, button, input, textarea, select { cursor: none; }
+
+/* ─── NATIVE CURSOR STATES ─────────────────────────── */
+a[href],
+button,
+[role="button"],
+summary,
+label[for] {
+  cursor: pointer;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
+textarea,
+select {
+  cursor: text;
+}
+input[type="checkbox"],
+input[type="radio"],
+input[type="submit"] {
+  cursor: pointer;
+}
+button:disabled,
+input:disabled,
+textarea:disabled,
+select:disabled {
+  cursor: not-allowed;
+}
 
 /* ─── TYPOGRAPHY REFINEMENTS — Light Mode ───────────────── */
 [data-theme="light"] h1,
@@ -154,11 +179,19 @@ a, button, input, textarea, select { cursor: none; }
 
 /* ─── LAYOUT ─────────────────────────────────────────── */
 .container {
+  width: 100%;
   max-width: 1160px;
   margin: 0 auto;
   padding: 0 28px;
 }
 section { padding: 120px 0; }
+
+img, svg, video, canvas {
+  max-width: 100%;
+}
+
+/* Prevent any child from forcing a horizontal scrollbar */
+main, section, .container { min-width: 0; }
 
 /* ─── GLASS CARD ─────────────────────────────────────── */
 .glass {
@@ -226,14 +259,16 @@ section { padding: 120px 0; }
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   padding: 13px 28px;
   border-radius: var(--r-full);
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 500;
+  text-align: center;
   text-decoration: none;
-  cursor: none;
+  cursor: pointer;
   border: none;
   position: relative;
   overflow: hidden;
@@ -416,6 +451,96 @@ section { padding: 120px 0; }
   color: var(--p);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE FOUNDATION — 320px phone → 4K display
+   Breakpoints: 1600 (large) · 1200 (laptop) · 900 (tablet)
+                768 (small tablet) · 560 (phone) · 400 (small phone)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── TOUCH / COARSE POINTER ─────────────────────────── */
+/* Hover transforms only on devices that can actually hover,
+   so taps on phones don't leave cards stuck in a lifted state. */
+@media (hover: none), (pointer: coarse) {
+  .glass:hover,
+  .btn:hover,
+  .btn-primary:hover,
+  .btn-outline:hover,
+  .project-card:hover,
+  .skill-card:hover,
+  .edu-card:hover,
+  .cert-card:hover,
+  .course-card:hover,
+  .timeline-card:hover,
+  .contact-item:hover,
+  .footer-social a:hover,
+  .about-tag:hover,
+  .code-window:hover {
+    transform: none;
+  }
+  .glass:hover {
+    box-shadow: var(--glass-shadow);
+  }
+}
+
+/* ─── LARGE DESKTOP / ULTRAWIDE ───────────────────────── */
+@media (min-width: 1400px) {
+  .container { max-width: 1280px; }
+}
+@media (min-width: 1800px) {
+  .container { max-width: 1440px; }
+  section { padding: 140px 0; }
+}
+@media (min-width: 2400px) {
+  body { font-size: 18px; }
+  .container { max-width: 1600px; }
+  section { padding: 160px 0; }
+}
+
+/* ─── SHORT VIEWPORTS (landscape phones) ─────────────── */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero-section { min-height: auto; padding: 110px 0 60px; }
+  .hero-content { padding-top: 0; }
+}
+
+/* ─── LAPTOP / SMALL DESKTOP ─────────────────────────── */
+@media (max-width: 1200px) {
+  .container { padding: 0 24px; }
+}
+
+/* ─── TABLET ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .container { padding: 0 22px; }
+  section { padding: 88px 0; }
+  .section-title { margin-bottom: 52px; }
+  .glass { backdrop-filter: blur(12px) saturate(1.2); -webkit-backdrop-filter: blur(12px) saturate(1.2); }
+}
+
+/* ─── SMALL TABLET / LARGE PHONE ─────────────────────── */
+@media (max-width: 768px) {
+  .container { padding: 0 18px; }
+  section { padding: 72px 0; }
+  .section-title { margin-bottom: 44px; }
+  .btn { padding: 12px 22px; font-size: 0.87rem; }
+  /* Prevent iOS auto-zoom on focus (needs ≥16px) */
+  input, textarea, select { font-size: 16px !important; }
+}
+
+/* ─── PHONE ──────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .container { padding: 0 16px; }
+  section { padding: 60px 0; }
+  .section-title { font-size: clamp(1.6rem, 7.5vw, 2.2rem); margin-bottom: 36px; }
+  .subsection-label { margin-bottom: 16px; font-size: 0.75rem; }
+  .btn { padding: 12px 18px; font-size: 0.85rem; width: 100%; }
+}
+
+/* ─── SMALL PHONE ────────────────────────────────────── */
+@media (max-width: 400px) {
+  .container { padding: 0 14px; }
+  section { padding: 52px 0; }
+  .section-title { font-size: clamp(1.4rem, 7.5vw, 1.8rem); }
+}
+
 /* ─── REDUCED MOTION ───────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -426,6 +551,4 @@ section { padding: 120px 0; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  body { cursor: auto; }
-  a, button, input, textarea, select { cursor: pointer; }
 }

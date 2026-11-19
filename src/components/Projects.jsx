@@ -7,6 +7,7 @@ import {
   FaChevronRight, FaPlay, FaEye
 } from 'react-icons/fa';
 import { staggerContainer, staggerItemScale, springHover } from '../animations';
+import useSpotlight from '../hooks/useSpotlight';
 import './Projects.css';
 
 const typeConfig = {
@@ -215,7 +216,14 @@ const ProjectModal = ({ project, onClose }) => {
               </BrowserFrame>
             ) : (
               <div className="project-modal-img-wrap">
-                <img src={project.image} alt={project.title} className="project-modal-img" />
+                {project.image ? (
+                  <img src={project.image} alt={project.title} className="project-modal-img" />
+                ) : (
+                  <div className="project-modal-img-placeholder" style={{ '--type-color': type.color, '--type-glow': type.glow }}>
+                    <span className="placeholder-icon">{type.icon}</span>
+                    <p>No screenshot available</p>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -288,10 +296,11 @@ const useTilt = () => {
 const ProjectCard = ({ project, index, onOpenPreview, onOpenDetail }) => {
   const type = typeConfig[project.type] || typeConfig.Frontend;
   const { ref, tilt, onMouseMove, onMouseLeave } = useTilt();
+  const { spotlightProps } = useSpotlight();
 
   return (
     <motion.article
-      className={`project-card glass`}
+      className={`project-card glass spotlight ring`}
       style={{
         '--type-color': type.color,
         '--type-glow': type.glow,
@@ -312,6 +321,7 @@ const ProjectCard = ({ project, index, onOpenPreview, onOpenDetail }) => {
         className="card-tilt-wrap"
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
+        {...spotlightProps}
       >
         <div className="card-glow" />
         <div className="card-orb" />
@@ -324,14 +334,22 @@ const ProjectCard = ({ project, index, onOpenPreview, onOpenDetail }) => {
         {/* Image Section */}
         <div className="project-image-wrap">
           <div className="project-img-inner">
-            <motion.img
-              src={project.image}
-              alt={project.title}
-              className="project-img"
-              loading="lazy"
-              whileHover={{ scale: 1.12 }}
-              transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-            />
+            {project.image ? (
+              <motion.img
+                src={project.image}
+                alt={project.title}
+                className="project-img"
+                loading="lazy"
+                whileHover={{ scale: 1.12 }}
+                transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+              />
+            ) : (
+              <div className="project-img-placeholder" style={{ '--type-color': type.color, '--type-glow': type.glow }}>
+                <div className="placeholder-orb a" />
+                <div className="placeholder-orb b" />
+                <span className="placeholder-icon">{type.icon}</span>
+              </div>
+            )}
             <div className="img-shine" />
           </div>
           {/* Hover overlay */}

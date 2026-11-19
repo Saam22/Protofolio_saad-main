@@ -154,6 +154,68 @@
   transform: translateZ(0);
   will-change: transform;
 }
+.project-img-placeholder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 120% at 20% 15%, var(--type-glow), transparent 50%),
+    radial-gradient(100% 100% at 85% 80%, rgba(34, 211, 238, 0.25), transparent 55%),
+    linear-gradient(135deg, var(--bg3), var(--bg2));
+  overflow: hidden;
+}
+.project-img-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(251, 191, 36, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 191, 36, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent 75%);
+}
+.placeholder-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(26px);
+  opacity: 0.55;
+  animation: placeholderFloat 5s ease-in-out infinite;
+}
+.placeholder-orb.a {
+  width: 110px;
+  height: 110px;
+  top: 14%;
+  left: 18%;
+  background: var(--type-color);
+}
+.placeholder-orb.b {
+  width: 90px;
+  height: 90px;
+  bottom: 12%;
+  right: 16%;
+  background: var(--s);
+  animation-delay: -2.5s;
+}
+.placeholder-icon {
+  position: relative;
+  z-index: 1;
+  font-size: 3rem;
+  color: var(--type-color);
+  filter: drop-shadow(0 6px 24px var(--type-glow));
+  animation: placeholderPulse 2.8s ease-in-out infinite;
+}
+@keyframes placeholderFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-14px) scale(1.08); }
+}
+@keyframes placeholderPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.12); opacity: 0.85; }
+}
 .img-shine {
   position: absolute;
   inset: 0;
@@ -774,6 +836,30 @@
   max-height: 400px;
   object-fit: cover;
   border-radius: var(--r2);
+}
+.project-modal-img-placeholder {
+  width: 100%;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border-radius: var(--r2);
+  background:
+    radial-gradient(110% 110% at 25% 20%, var(--type-glow), transparent 55%),
+    linear-gradient(135deg, var(--bg3), var(--bg2));
+  border: 1px dashed var(--bd-p);
+}
+.project-modal-img-placeholder .placeholder-icon {
+  font-size: 3.4rem;
+  color: var(--type-color);
+  filter: drop-shadow(0 8px 26px var(--type-glow));
+}
+.project-modal-img-placeholder p {
+  font-size: 0.9rem;
+  color: var(--tx3);
+  font-weight: 500;
 }
 .project-modal-content {
   padding: 32px;

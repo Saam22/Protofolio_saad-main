@@ -68,6 +68,7 @@
   color: var(--p);
   background: var(--p-glow);
   border-color: var(--bd-p);
+  box-shadow: 0 0 18px rgba(var(--p-rgb), 0.18);
 }
 
 /* Animated underline */
@@ -77,8 +78,10 @@
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--p), var(--s));
+  background: var(--grad);
+  background-size: 200% 100%;
   border-radius: 2px;
+  box-shadow: 0 0 10px rgba(var(--p-rgb), 0.5);
   transition: width 0.35s var(--ease), left 0.35s var(--ease);
   pointer-events: none;
 }

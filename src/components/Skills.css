@@ -47,8 +47,10 @@
 }
 .skill-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--p), var(--s));
+  background: var(--grad);
+  background-size: 200% 100%;
   border-radius: 3px;
+  box-shadow: 0 0 14px rgba(var(--p-rgb), 0.45);
   transition: width 1.2s var(--ease);
   position: relative;
 }
@@ -78,18 +80,32 @@
   position: relative;
   overflow: hidden;
 }
+/* Colour the top edge with each stack's own accent, glow on hover */
 .skill-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--card-accent), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
+  background: linear-gradient(90deg, var(--card-accent), transparent 85%);
+  opacity: 0.75;
+  transition: opacity 0.3s, height 0.3s var(--ease), box-shadow 0.3s;
 }
-.skill-card:hover::before { opacity: 1; }
+.skill-card:hover::before {
+  opacity: 1;
+  height: 4px;
+  box-shadow: 0 0 18px var(--card-accent);
+}
 
-.skill-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; line-height: 1; }
+.skill-icon {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  display: block;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px var(--card-accent));
+  transition: filter 0.3s;
+}
+.skill-card:hover .skill-icon { filter: drop-shadow(0 0 18px var(--card-accent)); }
+
 .skill-card-title {
   font-family: var(--font-display);
   font-size: 0.95rem;
@@ -117,6 +133,7 @@
   background: var(--p-glow);
   border-color: var(--bd-p);
   color: var(--p);
+  box-shadow: 0 0 14px rgba(var(--p-rgb), 0.24);
 }
 
 @media (max-width: 900px) {

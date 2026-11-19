@@ -37,7 +37,8 @@ const Typewriter = ({ texts }) => {
 
   return (
     <span className="typewriter-text">
-      {display}<span className="typewriter-cursor">|</span>
+      {display}
+      <span className="typewriter-caret" aria-hidden="true" />
     </span>
   );
 };
@@ -182,9 +183,11 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
           >
-            <Typewriter texts={roles} />{' '}
+            <span className="role-static">
+              <Typewriter texts={roles} />
+            </span>{' '}
             <span className="hero-role-divider">—</span>{' '}
-            React / Django / Node.js
+            <span className="role-stack">React / Django / Node.js</span>
           </motion.p>
 
           <motion.p

@@ -18,11 +18,15 @@
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(245, 158, 11, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(245, 158, 11, 0.025) 1px, transparent 1px);
+    linear-gradient(rgba(251, 191, 36, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 80% 60% at 70% 50%, black 20%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 70% 50%, black 20%, transparent 70%);
+  animation: gridDrift 26s linear infinite;
+}
+@keyframes gridDrift {
+  to { background-position: 48px 48px, 48px 48px; }
 }
 
 .diagonal-accent {
@@ -98,12 +102,39 @@
 /* ─── NAME ──────────────────────────────────────────────── */
 
 .hero-name {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0;
   margin-bottom: 20px;
   line-height: 0.92;
 }
+
+/* Soft amber wash sitting behind the name */
+.hero-name::before {
+  content: '';
+  position: absolute;
+  left: -12%;
+  top: -18%;
+  width: 124%;
+  height: 150%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    58% 52% at 34% 46%,
+    rgba(var(--p-rgb), 0.20),
+    rgba(var(--s-rgb), 0.10) 58%,
+    transparent 78%
+  );
+  filter: blur(34px);
+  animation: nameAura 7s ease-in-out infinite alternate;
+}
+@keyframes nameAura {
+  0%   { transform: translate(0, 0) scale(1);    opacity: 0.75; }
+  50%  { transform: translate(3%, -2%) scale(1.08); opacity: 1; }
+  100% { transform: translate(-2%, 2%) scale(1.02); opacity: 0.85; }
+}
+[data-theme="light"] .hero-name::before { opacity: 0.6; }
 
 .hero-name-line {
   font-family: var(--font-display);
@@ -114,16 +145,39 @@
   display: block;
   transform-origin: left center;
   overflow-wrap: break-word;
+  position: relative;
+  /* Chrome/Safari thin-stroke trick: expands the glyph so the
+     text-shadow reads as a real glow, not a blur halo */
+  -webkit-text-stroke: 1px transparent;
+  transition: transform 0.5s var(--ease-out), text-shadow 0.5s var(--ease-out);
+}
+.hero-name:hover .hero-name-line:first-child {
+  transform: translateX(10px);
 }
 
 .hero-name-line:last-child {
-  background: linear-gradient(135deg, var(--p) 0%, var(--a) 40%, var(--s) 100%);
-  background-size: 200% 200%;
+  background: linear-gradient(110deg, var(--p) 0%, var(--p-lt) 14%, var(--s) 52%, var(--a) 82%, var(--p) 100%);
+  background-size: 260% 260%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 6s ease-in-out infinite;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
+  animation:
+    gradientShift 7s ease-in-out infinite,
+    nameFloat 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 26px rgba(var(--p-rgb), 0.42))
+          drop-shadow(0 0 46px rgba(var(--s-rgb), 0.26));
+}
+[data-theme="light"] .hero-name-line:last-child {
+  filter: drop-shadow(0 2px 14px rgba(var(--p-rgb), 0.28));
+}
+@keyframes nameFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+.hero-name:hover .hero-name-line:last-child {
+  filter: drop-shadow(0 0 38px rgba(var(--p-rgb), 0.62))
+          drop-shadow(0 0 70px rgba(var(--s-rgb), 0.42));
 }
 
 /* ─── ROLE ───────────────────────────────────────────────── */
@@ -135,6 +189,18 @@
   font-weight: 400;
   min-height: 1.7em;
 }
+/* Gradient on the static prefix too, so the whole role line
+   reads as one accent block instead of grey-then-colour */
+.hero-role .role-static {
+  background: var(--grad-hi);
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 8s ease-in-out infinite;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
 
 .hero-role-divider {
   color: var(--tx3);
@@ -144,6 +210,38 @@
 .typewriter-text {
   color: var(--p);
   font-weight: 500;
+}
+/* The typed role is the loudest thing after the name, so it
+   carries the full multi-colour gradient while it types */
+.hero-role .typewriter-text {
+  background: var(--grad-hi);
+  background-size: 240% 240%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+/* Trailing caret, coloured to match the gradient */
+.hero-role .typewriter-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--s);
+  box-shadow: 0 0 10px var(--s);
+  animation: caretBlink 1s step-end infinite;
+}
+@keyframes caretBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+.role-stack {
+  color: var(--tx);
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 /* ─── DESCRIPTION ───────────────────────────────────────── */
@@ -174,17 +272,19 @@
 .cta-btn.btn-primary::after {
   content: '';
   position: absolute;
-  inset: -4px;
+  inset: -5px;
   border-radius: inherit;
-  background: linear-gradient(135deg, var(--p), var(--a), var(--s));
+  background: var(--grad);
+  background-size: 200% 200%;
   z-index: -1;
   opacity: 0;
   transition: opacity 0.4s;
-  filter: blur(12px);
+  filter: blur(14px);
+  animation: gradientShift 4s ease-in-out infinite;
 }
 
 .cta-btn.btn-primary:hover::after {
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 .cv-btn:hover {
@@ -207,10 +307,16 @@
 .stat-num {
   font-family: var(--font-display);
   font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--p);
+  font-weight: 800;
   line-height: 1;
   letter-spacing: -0.03em;
+  background: var(--grad);
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 16px rgba(var(--p-rgb), 0.35));
 }
 
 .stat-label {

@@ -1,45 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Sora:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Accent — Amber + Cyan (Dark Mode - untouched) */
-  --p:        #F59E0B;
-  --p-dim:    #D97706;
-  --p-glow:   rgba(245, 158, 11, 0.15);
-  --p-rgb:    245, 158, 11;
+  /* VIBRANT MULTI-COLOR — Tailwind 400/500/200 steps.
+     Brighter than before so accents read on near-black. */
+  --p:        #FBBF24;   /* Amber-400 */
+  --p-dim:    #F59E0B;   /* Amber-500 */
+  --p-lt:     #FDE68A;   /* Amber-200 */
+  --p-glow:   rgba(251, 191, 36, 0.22);
+  --p-rgb:    251, 191, 36;
 
-  --s:        #06B6D4;
-  --s-dim:    #0891B2;
-  --s-glow:   rgba(6, 182, 212, 0.12);
+  --s:        #22D3EE;   /* Cyan-400 */
+  --s-dim:    #06B6D4;   /* Cyan-500 */
+  --s-lt:     #A5F3FC;   /* Cyan-200 */
+  --s-glow:   rgba(34, 211, 238, 0.20);
+  --s-rgb:    34, 211, 238;
 
-  --a:        #F97316;
-  --a-glow:   rgba(249, 115, 22, 0.12);
+  --a:        #FB923C;   /* Orange-400 */
+  --a-dim:    #F97316;   /* Orange-500 */
+  --a-glow:   rgba(251, 146, 60, 0.20);
+  --a-rgb:    251, 146, 60;
+
+  /* Success — Emerald (was hardcoded #34D399 in three places) */
+  --ok:       #34D399;
+  --ok-dim:   #059669;
+  --ok-glow:  rgba(52, 211, 153, 0.12);
+  --ok-rgb:   52, 211, 153;
 
   /* Terminal accents */
   --amber-dim: #A16207;
   --cyan-dim:  #0E7490;
 
-  /* Surfaces */
-  --bg:       #07080A;
-  --bg2:      #0D0E14;
-  --bg3:      #14161E;
-  --bg4:      #1E2030;
-  --bg-glass: rgba(13, 14, 20, 0.65);
+  /* Surfaces — deeper blacks so the accents glow harder */
+  --bg:       #050507;
+  --bg2:      #0B0C12;
+  --bg3:      #121420;
+  --bg4:      #1B1F2C;
+  --bg-glass: rgba(8, 9, 14, 0.72);
 
-  /* Text */
-  --tx:       #F0EEE4;
-  --tx2:      #9A9A9A;
-  --tx3:      #4A4A4A;
+  /* Text — three tiers, each clearing WCAG AA on --bg
+     tx 18.1:1 · tx2 8.1:1 · tx3 4.9:1 */
+  --tx:       #F5F3EC;
+  --tx2:      #A9A9B3;
+  --tx3:      #7C7C8A;
 
-  /* Borders */
-  --bd:       rgba(255, 255, 255, 0.05);
-  --bd2:      rgba(255, 255, 255, 0.08);
-  --bd-p:     rgba(245, 158, 11, 0.2);
-  --bd-s:     rgba(6, 182, 212, 0.2);
+  /* Borders — raised from 0.05 / 0.08 so they actually read */
+  --bd:       rgba(255, 255, 255, 0.09);
+  --bd2:      rgba(255, 255, 255, 0.14);
+  --bd3:      rgba(255, 255, 255, 0.22);
+  --bd-p:     rgba(251, 191, 36, 0.32);
+  --bd-s:     rgba(34, 211, 238, 0.32);
+  --bd-ok:    rgba(52, 211, 153, 0.32);
 
   /* Radii */
-  --r:        16px;
-  --r2:       10px;
-  --r3:       6px;
+  --r:        18px;
+  --r2:       12px;
+  --r3:       8px;
   --r-full:   9999px;
 
   /* Typography */
@@ -53,14 +68,21 @@
   --smooth:     cubic-bezier(0.65, 0, 0.35, 1);
 
   /* Animation durations */
-  --dur-fast:   400ms;
-  --dur-norm:   600ms;
-  --dur-slow:   800ms;
+  --dur-fast:   360ms;
+  --dur-norm:   560ms;
+  --dur-slow:   760ms;
 
-  /* Glass */
-  --glass-bg:     rgba(13, 14, 20, 0.55);
-  --glass-border: rgba(245, 158, 11, 0.06);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(245, 158, 11, 0.04);
+  /* Glass — tinted amber and a real ambient glow */
+  --glass-bg:     rgba(8, 9, 14, 0.62);
+  --glass-border: rgba(251, 191, 36, 0.10);
+  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.55), 0 0 80px rgba(251, 191, 36, 0.08);
+
+  /* Signature gradient — single source of truth.
+     Primary → light → secondary → tertiary, so adjacent stops
+     differ in lightness, not just hue. */
+  --grad:      linear-gradient(120deg, var(--p) 0%, var(--p-lt) 16%, var(--s) 60%, var(--a) 100%);
+  --grad-hi:   linear-gradient(120deg, var(--p-lt) 0%, var(--p) 14%, var(--a) 50%, var(--s) 100%);
+  --grad-soft: radial-gradient(120% 120% at 50% 0%, rgba(var(--p-rgb), 0.22), rgba(var(--s-rgb), 0.14) 60%, transparent 100%);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -69,47 +91,62 @@
    Every value hand-tuned for a premium editorial feel.
    ═══════════════════════════════════════════════════════════════ */
 [data-theme="light"] {
-  /* Accent — Slate Blue (#3D5A73) — sophisticated, warm, editorial */
-  --p:        #3D5A73;
-  --p-dim:    #2E475E;
-  --p-glow:   rgba(61, 90, 115, 0.08);
-  --p-rgb:    61, 90, 115;
+  /* LIGHT MODE — warm editorial, saturated.
+     Amber keeps brand continuity; teal and terracotta are pushed
+     from muddy browns to real chromatic accents. */
+  --p:        #B45309;   /* Amber-700 */
+  --p-dim:    #92400E;   /* Amber-800 */
+  --p-lt:     #D97706;   /* Amber-600 */
+  --p-glow:   rgba(180, 83, 9, 0.12);
+  --p-rgb:    180, 83, 9;
 
-  /* Secondary — Warm Taupe */
-  --s:        #8B7355;
-  --s-dim:    #6F5D44;
-  --s-glow:   rgba(139, 115, 85, 0.08);
+  /* Secondary — Deep Teal (was muddy warm taupe) */
+  --s:        #0E7490;   /* Cyan-700 */
+  --s-dim:    #155E75;   /* Cyan-800 */
+  --s-lt:     #0891B2;   /* Cyan-600 */
+  --s-glow:   rgba(14, 116, 144, 0.12);
+  --s-rgb:    14, 116, 144;
 
-  /* Tertiary — Muted Terracotta */
-  --a:        #A65D4A;
-  --a-glow:   rgba(166, 93, 74, 0.08);
+  /* Tertiary — Burnt Sienna */
+  --a:        #9A3412;   /* Orange-800 */
+  --a-dim:    #7C2D12;   /* Orange-900 */
+  --a-glow:   rgba(154, 52, 18, 0.12);
+  --a-rgb:    154, 52, 18;
+
+  /* Success — Forest */
+  --ok:       #15803D;   /* Green-700 */
+  --ok-dim:   #166534;   /* Green-800 */
+  --ok-glow:  rgba(21, 128, 61, 0.12);
+  --ok-rgb:   21, 128, 61;
 
   /* Terminal accents */
-  --amber-dim: #6F5D44;
-  --cyan-dim:  #4A6741;
+  --amber-dim: #92400E;
+  --cyan-dim:  #155E75;
 
   /* Surfaces — warm off-white family, no pure white */
-  --bg:       #FAFAF7;
-  --bg2:      #F5F4EF;
-  --bg3:      #EDECEA;
-  --bg4:      #E0DED8;
-  --bg-glass: rgba(250, 250, 247, 0.75);
+  --bg:       #FFFEFC;
+  --bg2:      #F8F6F0;
+  --bg3:      #F0EDE4;
+  --bg4:      #E4E0D3;
+  --bg-glass: rgba(255, 254, 252, 0.78);
 
-  /* Text — near-black + warm grays */
-  --tx:       #1A1A18;
-  --tx2:      #6B6A62;
-  --tx3:      #9E9D95;
+  /* Text — tx 17.3:1 · tx2 7.2:1 · tx3 4.8:1 on --bg */
+  --tx:       #17150F;
+  --tx2:      #57544A;
+  --tx3:      #6F6B5E;
 
-  /* Borders — warm, hairline, never cold gray */
-  --bd:       rgba(226, 224, 214, 0.8);
-  --bd2:      #E2E0D6;
-  --bd-p:     rgba(61, 90, 115, 0.15);
-  --bd-s:     rgba(139, 115, 85, 0.15);
+  /* Borders */
+  --bd:       rgba(180, 83, 9, 0.14);
+  --bd2:      #DAD5C4;
+  --bd3:      #BDB7A0;
+  --bd-p:     rgba(180, 83, 9, 0.34);
+  --bd-s:     rgba(14, 116, 144, 0.34);
+  --bd-ok:    rgba(21, 128, 61, 0.34);
 
-  /* Glass — off-white base, silver border, soft shadow */
-  --glass-bg:     rgba(250, 250, 247, 0.75);
-  --glass-border: rgba(226, 224, 214, 0.6);
-  --glass-shadow: 0 4px 24px rgba(26, 26, 24, 0.06), 0 1px 2px rgba(26, 26, 24, 0.04);
+  /* Glass — off-white base, amber-tinted hairline, real shadow */
+  --glass-bg:     rgba(255, 254, 252, 0.78);
+  --glass-border: rgba(180, 83, 9, 0.16);
+  --glass-shadow: 0 6px 28px rgba(23, 21, 15, 0.08), 0 1px 2px rgba(23, 21, 15, 0.05);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -195,18 +232,25 @@ main, section, .container { min-width: 0; }
 
 /* ─── GLASS CARD ─────────────────────────────────────── */
 .glass {
+  position: relative;
   background: var(--glass-bg);
-  backdrop-filter: blur(16px) saturate(1.3);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
   border: 1px solid var(--glass-border);
   border-radius: var(--r);
   box-shadow: var(--glass-shadow);
-  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  transition:
+    border-color 0.3s var(--ease),
+    transform 0.3s var(--ease),
+    box-shadow 0.4s var(--ease);
 }
 .glass:hover {
   border-color: var(--bd-p);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--bd-p), 0 0 40px rgba(var(--p-rgb), 0.04);
+  transform: translateY(-6px);
+  box-shadow:
+    0 18px 56px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--bd-p),
+    0 0 60px rgba(var(--p-rgb), 0.18);
 }
 [data-theme="light"] .glass:hover {
   transform: translateY(-2px);
@@ -218,23 +262,30 @@ main, section, .container { min-width: 0; }
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4.5vw, 3rem);
-  font-weight: 700;
+  font-weight: 800;
   text-align: center;
   color: var(--tx);
   margin-bottom: 72px;
   letter-spacing: -0.03em;
   position: relative;
+  transition: transform 0.5s var(--ease-out);
 }
+.section-title:hover { transform: translateY(-3px); }
 [data-theme="light"] .section-title {
   font-weight: 600;
 }
 .section-title .accent-word {
-  background: linear-gradient(135deg, var(--p) 0%, var(--a) 50%, var(--s) 100%);
-  background-size: 200% 200%;
+  background: var(--grad);
+  background-size: 220% 220%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 6s ease-in-out infinite;
+  animation: gradientShift 7s ease-in-out infinite;
+  transition: filter 0.4s var(--ease);
+}
+.section-title:hover .accent-word {
+  animation-duration: 3s;
+  filter: drop-shadow(0 0 18px rgba(var(--p-rgb), 0.35));
 }
 @keyframes gradientShift {
   0%, 100% { background-position: 0% 50%; }
@@ -245,7 +296,8 @@ main, section, .container { min-width: 0; }
   display: block;
   width: 48px;
   height: 4px;
-  background: linear-gradient(90deg, var(--p), var(--a), var(--s));
+  background: var(--grad);
+  background-size: 200% 100%;
   border-radius: 2px;
   margin: 18px auto 0;
   animation: titleLine 3s ease-in-out infinite;
@@ -285,13 +337,22 @@ main, section, .container { min-width: 0; }
   transform: scale(0.98);
 }
 .btn-primary {
-  background: linear-gradient(135deg, var(--p), var(--p-dim));
-  color: #07080A;
-  font-weight: 700;
+  background: linear-gradient(120deg, var(--p) 0%, var(--p-lt) 30%, var(--p) 60%, var(--a) 100%);
+  background-size: 220% 100%;
+  color: #1A1206;
+  font-weight: 800;
+  box-shadow: 0 4px 18px rgba(var(--p-rgb), 0.28);
+  animation: btnSheen 5s ease-in-out infinite;
+}
+@keyframes btnSheen {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
 }
 .btn-primary:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 32px rgba(var(--p-rgb), 0.4), 0 0 40px rgba(var(--p-rgb), 0.15);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    0 14px 38px rgba(var(--p-rgb), 0.5),
+    0 0 60px rgba(var(--a-rgb), 0.32);
 }
 [data-theme="light"] .btn-primary {
   color: #FAFAF7;
@@ -336,44 +397,126 @@ main, section, .container { min-width: 0; }
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+  contain: strict;
 }
 .gradient-bg::before,
 .gradient-bg::after {
   content: '';
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  /* blur(100px) on a 700px element repainted the whole hero on
+     every frame — 70px is visually equivalent and far cheaper */
+  filter: blur(70px);
   opacity: 0.08;
+  will-change: transform;
 }
 .gradient-bg::before {
-  width: 700px; height: 700px;
+  width: 560px; height: 560px;
   background: radial-gradient(circle, var(--p), transparent 70%);
-  top: -300px; right: -200px;
+  top: -260px; right: -180px;
   animation: gradientOrbA 20s ease-in-out infinite alternate;
 }
 .gradient-bg::after {
-  width: 500px; height: 500px;
+  width: 420px; height: 420px;
   background: radial-gradient(circle, var(--s), transparent 70%);
-  bottom: -200px; left: -150px;
+  bottom: -180px; left: -140px;
   animation: gradientOrbB 16s ease-in-out infinite alternate;
 }
 [data-theme="light"] .gradient-bg::before,
 [data-theme="light"] .gradient-bg::after {
   display: none;
 }
+/* scale() forced a re-rasterise of the blurred layer every frame */
 @keyframes gradientOrbA {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0.04; }
-  50%  { transform: translate(100px, -50px) scale(1.3); opacity: 0.10; }
-  100% { transform: translate(-40px, 30px) scale(0.9); opacity: 0.06; }
+  0%   { transform: translate(0, 0); opacity: 0.05; }
+  50%  { transform: translate(100px, -50px); opacity: 0.10; }
+  100% { transform: translate(-40px, 30px); opacity: 0.07; }
 }
 @keyframes gradientOrbB {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0.04; }
-  50%  { transform: translate(-80px, 50px) scale(1.2); opacity: 0.09; }
-  100% { transform: translate(50px, -30px) scale(1.1); opacity: 0.06; }
+  0%   { transform: translate(0, 0); opacity: 0.05; }
+  50%  { transform: translate(-80px, 50px); opacity: 0.09; }
+  100% { transform: translate(50px, -30px); opacity: 0.07; }
+}
+
+/* ─── MOUSE SPOTLIGHT ─────────────────────────────────── */
+/* Cards light up under the pointer. The gradient stops are the
+   accent tokens, so it re-tints with the theme automatically. */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(var(--p-rgb), 0.22),
+    rgba(var(--s-rgb), 0.1) 45%,
+    transparent 72%
+  );
+}
+.spotlight:hover::before { opacity: 1; }
+[data-theme="light"] .spotlight::before {
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(var(--p-rgb), 0.16),
+    rgba(var(--s-rgb), 0.07) 45%,
+    transparent 72%
+  );
+}
+
+/* ─── ANIMATED GRADIENT BORDER ────────────────────────── */
+@property --ring-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.ring {
+  position: relative;
+  isolation: isolate;
+}
+.ring::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+  background: conic-gradient(
+    from var(--ring-angle),
+    transparent 0deg,
+    var(--p) 60deg,
+    var(--s) 140deg,
+    var(--a) 210deg,
+    transparent 300deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: ringSpin 4s linear infinite;
+}
+.ring:hover::after { opacity: 1; }
+@keyframes ringSpin {
+  to { --ring-angle: 360deg; }
+}
+@supports not (background: conic-gradient(from var(--ring-angle), red, blue)) {
+  .ring::after { display: none; }
 }
 
 /* ─── SUBSECTION LABEL ───────────────────────────────── */
 .subsection-label {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -383,9 +526,16 @@ main, section, .container { min-width: 0; }
   background: var(--p-glow);
   color: var(--p);
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 20px;
   letter-spacing: 0.04em;
+  box-shadow: 0 0 20px rgba(var(--p-rgb), 0.14);
+  transition: box-shadow 0.4s var(--ease), transform 0.4s var(--ease-out);
+  overflow: hidden;
+}
+.subsection-label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(var(--p-rgb), 0.32);
 }
 [data-theme="light"] .subsection-label {
   border-radius: 4px;

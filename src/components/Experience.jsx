@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
-import { FaCalendarAlt, FaBuilding } from 'react-icons/fa';
+import { FaCalendarAlt, FaBuilding, FaCheckCircle } from 'react-icons/fa';
 import { fadeIn } from '../animations';
 import './Experience.css';
 
@@ -41,6 +41,14 @@ const Experience = () => (
               <h3 className="timeline-title">{exp.title}</h3>
               <h4 className="timeline-company"><FaBuilding /> {exp.company}</h4>
               {exp.description && <p className="timeline-desc">{exp.description}</p>}
+
+              {exp.bullets && (
+                <ul className="timeline-bullets">
+                  {exp.bullets.map((b, j) => (
+                    <li key={j}><FaCheckCircle className="bullet-icon" /> {b}</li>
+                  ))}
+                </ul>
+              )}
             </motion.div>
           </motion.div>
         ))}

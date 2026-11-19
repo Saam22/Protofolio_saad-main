@@ -1,15 +1,17 @@
 export const portfolioData = {
   personal: {
     name: "Saad Mohamed Hassan",
-    title: "Web Developer",
+    title: "Full-Stack Web Developer",
+    subtitle: "React.js & Node.js",
     email: "saadmhafez222002@gmail.com",
     phone: "01018310038",
     location: "Badr City, Cairo, Egypt",
     linkedin: "www.linkedin.com/in/saad-mohamed-hassan",
     github: "https://github.com/Saam22",
+    website: "https://protofolio-saad.vercel.app",
   },
 
-  profile: `Full-Stack Developer passionate about building responsive and dynamic web applications using HTML, CSS, JavaScript, and React.js. Experienced with Node.js and Django for back-end development. Solid understanding of Object-Oriented Programming, Data Structures, and Design Patterns. Graduated from Ain Shams University (Faculty of Computer and Information Science) with hands-on experience through internships at ITI and Mentality. Always learning and open to new opportunities.`,
+  profile: `Full-Stack Web Developer focused on building responsive, dynamic web applications with React.js, Node.js, and Django. Recent Computer Science graduate (Faculty of Computer and Information Science, Ain Shams University) with a strong foundation in data structures, algorithms, and OOP. Hands-on experience through internships at ITI, Algoriza, and Mentality, plus professional experience at the Egyptian Armed Forces. Always learning and open to new opportunities.`,
 
   education: [
     {
@@ -23,20 +25,34 @@ export const portfolioData = {
 
   experience: [
     {
-      title: "Internship - Front End Using ReactJS",
-      company: "ITI",
-      period: "08/2022 – 09/2022",
-      description: "Front end Summer training in Faculty of Computer and Information System"
+      title: "Full-Stack Software Engineer",
+      company: "Egyptian Armed Forces",
+      period: "09/2025 – 09/2026",
+      description: "",
+      bullets: [
+        "Built and maintained 3+ full-stack systems used daily by 200+ personnel.",
+        "Automated manual data workflows, cutting reporting time by ~40%.",
+        "Migrated legacy systems to React.js and Node.js, improving load speed by ~35%.",
+        "Received a Certificate of Appreciation for outstanding performance and technical excellence."
+      ]
     },
     {
-      title: "Internship - Front End",
+      title: "Frontend Development Intern",
       company: "Mentality",
-      period: "06/2021 – 08/2021"
+      period: "08/2024 – 11/2024",
+      description: "Built 5+ reusable React component libraries, cutting design revision cycles by ~30%."
     },
     {
       title: "BackEnd Development Training (ASP.NET)",
       company: "Algoriza",
-      period: "08/2023 – 11/2023"
+      period: "10/2023 – 12/2023",
+      description: "Completed 60+ hours of ASP.NET training, building 3 data-driven applications."
+    },
+    {
+      title: "React.js Development Intern",
+      company: "ITI",
+      period: "08/2022 – 09/2022",
+      description: "Front end Summer training in Faculty of Computer and Information System"
     },
     {
       title: "Member",
@@ -57,6 +73,16 @@ export const portfolioData = {
       nodejs: ["Node.js", "Express.js", "MongoDB", "REST API", "JWT Authentication"],
       django: ["Django", "Django REST Framework", "PostgreSQL", "Python"]
     },
+    tools: ["Git & GitHub", "Postman", "Selenium", "Figma", "Webpack", "Vite", "Agile/Scrum-based teamwork"],
+    softSkills: [
+      "Analytical Thinking",
+      "Problem-Solving",
+      "Team Collaboration",
+      "Time Management",
+      "Adaptability",
+      "Attention to Detail",
+      "Communication"
+    ],
     other: [
       "Object Oriented Programming",
       "Data Structures & Algorithms",
@@ -171,6 +197,52 @@ export const portfolioData = {
       github: "https://github.com/Saam22/LearnForge",
       features: ["Course catalog", "Category filtering", "Enrollment tracking", "Animated counters"],
       featured: false
+    },
+    {
+      id: 9,
+      title: "Breast Cancer Detection",
+      subtitle: "Graduation Project",
+      description: "Full-stack ML web app integrating CNN, SVM, and Decision Tree models via a Flask REST API, achieving 94%+ accuracy, connected to a React.js frontend.",
+      technologies: ["ReactJS", "Python", "Flask", "Machine Learning", "CNN", "SVM"],
+      type: "FullStack",
+      image: "",
+      features: ["94%+ accuracy", "CNN, SVM & Decision Tree models", "Flask REST API", "React.js frontend"],
+      featured: false
+    },
+    {
+      id: 10,
+      title: "Mobile Phone Shop",
+      subtitle: "Management System",
+      description: "Full-stack system (Node.js, Express, MongoDB, React) with ~22 modules processing 500+ daily transactions, cutting inventory tracking errors by ~60%.",
+      technologies: ["Node.js", "Express.js", "MongoDB", "React", "JavaScript"],
+      type: "FullStack",
+      image: "",
+      features: ["~22 modules", "500+ daily transactions", "Inventory tracking", "-60% errors"],
+      featured: false
+    },
+    {
+      id: 11,
+      title: "Gym Management System",
+      subtitle: "Desktop Application",
+      description: "Java desktop app with OOP and modular DAO design, automating gym operations for 200+ members.",
+      technologies: ["Java", "OOP", "DAO"],
+      type: "Backend",
+      image: "",
+      features: ["200+ members", "Modular DAO design", "Membership management", "Automated operations"],
+      featured: false
+    },
+    {
+      id: 12,
+      title: "Al-Dukkan",
+      subtitle: "Grocery Delivery Platform",
+      description: "Modern, responsive grocery delivery web app with category browsing, search, filters, cart, checkout, saved addresses, order history, and live-style order tracking on an interactive Leaflet map. Frontend-only implementation with mocked product data and authentication.",
+      technologies: ["React 19", "Vite 8", "React Router 7", "Tailwind CSS 4", "Framer Motion", "Leaflet"],
+      type: "Frontend",
+      image: "/images/home copy.png",
+      live: "https://al-dukan-grocery-delivery-saam22s-projects.vercel.app/",
+      github: "https://github.com/Saam22/Al-Dukan---Grocery-Delivery",
+      features: ["Category browsing & featured products", "Filters, sorting & pagination", "Cart with localStorage persistence", "Checkout & saved addresses", "Order tracking with Leaflet map", "Mock login & registration"],
+      featured: false
     }
   ],
 
@@ -210,6 +282,11 @@ export const portfolioData = {
       issuer: "GreatStack",
       date: "2026"
     },
+    {
+      title: "Full Stack Grocery Delivery (PERN Stack)",
+      issuer: "GreatStack",
+      date: "2026"
+    },
   ],
 
   courses: [
@@ -219,6 +296,7 @@ export const portfolioData = {
     "Learn HTML & CSS - Mahara Tech",
     "Database Fundamentals - Mahara Tech",
     "C# Course - Essam Abdelnaby",
-    "Design And Implement Efficient Database Solutions - Manara Tech"
+    "Design And Implement Efficient Database Solutions - Manara Tech",
+    "Full Stack Grocery Delivery (PERN Stack) - GreatStack"
   ]
 };

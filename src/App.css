@@ -12,8 +12,10 @@ main {
   position: fixed;
   top: 0;
   left: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--p), var(--a), var(--s));
+  height: 3px;
+  background: var(--grad);
+  background-size: 200% 100%;
+  box-shadow: 0 0 14px rgba(var(--p-rgb), 0.6), 0 0 30px rgba(var(--s-rgb), 0.3);
   z-index: 1001;
   transition: width 0.1s linear, opacity 0.3s;
 }
@@ -36,15 +38,16 @@ main {
 }
 .loader-icon {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--p), var(--s), var(--a));
-  background-size: 200% 200%;
+  background: var(--grad);
+  background-size: 220% 220%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 4s ease-in-out infinite;
+  animation: gradientShift 3s ease-in-out infinite;
   letter-spacing: -0.04em;
+  filter: drop-shadow(0 0 22px rgba(var(--p-rgb), 0.5));
 }
 .loader-bar-track {
   width: 160px;
@@ -55,7 +58,9 @@ main {
 }
 .loader-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--p), var(--s));
+  background: var(--grad);
+  background-size: 200% 100%;
+  box-shadow: 0 0 14px rgba(var(--p-rgb), 0.55);
   border-radius: 2px;
 }
 .loader-text {

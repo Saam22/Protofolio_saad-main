@@ -24,7 +24,8 @@
   top: 16px;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, var(--p), var(--s));
+  background: linear-gradient(180deg, var(--p), var(--s) 55%, var(--a));
+  box-shadow: 0 0 10px rgba(var(--p-rgb), 0.45);
 }
 .timeline-item:last-child .timeline-line { display: none; }
 
@@ -35,13 +36,19 @@
   width: 14px; height: 14px;
   border-radius: 50%;
   background: var(--p);
-  box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--p-dim);
+  box-shadow:
+    0 0 0 4px var(--bg),
+    0 0 0 5px var(--p-dim),
+    0 0 16px rgba(var(--p-rgb), 0.5);
   z-index: 2;
   transition: box-shadow 0.25s, transform 0.25s;
 }
 .timeline-item:hover .timeline-dot {
-  box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--p), 0 0 20px rgba(var(--p-rgb), 0.5);
-  transform: scale(1.15);
+  box-shadow:
+    0 0 0 4px var(--bg),
+    0 0 0 6px var(--p),
+    0 0 28px rgba(var(--p-rgb), 0.75);
+  transform: scale(1.2);
 }
 
 .timeline-card {
@@ -59,8 +66,9 @@
   border-radius: var(--r-full);
   font-size: 0.76rem;
   color: var(--p);
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 10px;
+  box-shadow: 0 0 16px rgba(var(--p-rgb), 0.16);
 }
 
 .timeline-title {
@@ -86,6 +94,30 @@
   line-height: 1.7;
   font-weight: 400;
   overflow-wrap: break-word;
+}
+
+.timeline-bullets {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.timeline-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--tx2);
+  line-height: 1.6;
+}
+.bullet-icon {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--p);
+  font-size: 0.8rem;
+  filter: drop-shadow(0 0 6px rgba(var(--p-rgb), 0.5));
 }
 
 /* ─── RESPONSIVE ──────────────────────────── */

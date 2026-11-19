@@ -1,14 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
-import { FaReact, FaNodeJs, FaPython, FaGitAlt } from 'react-icons/fa';
+import { FaReact, FaNodeJs, FaPython, FaGitAlt, FaWrench, FaLightbulb } from 'react-icons/fa';
 import { SiDotnet, SiDjango } from 'react-icons/si';
 import { fadeIn, springIcon } from '../animations';
+import useSpotlight from '../hooks/useSpotlight';
 import './Skills.css';
 
-const SkillCard = ({ icon, title, items, accentColor, index }) => (
+const SkillCard = ({ icon, title, items, accentColor, index }) => {
+  const { ref, spotlightProps } = useSpotlight();
+
+  return (
   <motion.div
-    className="skill-card glass"
+    ref={ref}
+    {...spotlightProps}
+    className="skill-card glass spotlight"
     style={{ '--card-accent': accentColor }}
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -26,7 +32,8 @@ const SkillCard = ({ icon, title, items, accentColor, index }) => (
       ))}
     </div>
   </motion.div>
-);
+  );
+};
 
 const SkillsBar = ({ name, level, delay }) => {
   const [width, setWidth] = useState(0);
@@ -76,6 +83,8 @@ const Skills = () => {
     { icon: <SiDotnet color="#818cf8" />, title: '.NET Backend', items: skills.backend.dotnet, accentColor: '#818cf8' },
     { icon: <FaPython color="#fbbf24" />, title: 'Programming Languages', items: skills.programmingLanguages, accentColor: '#fbbf24' },
     { icon: <FaGitAlt color="#f87171" />, title: 'Other Skills', items: skills.other, accentColor: '#f87171' },
+    { icon: <FaWrench color="#22d3ee" />, title: 'Tools & Workflow', items: skills.tools, accentColor: '#22d3ee' },
+    { icon: <FaLightbulb color="#fde68a" />, title: 'Soft Skills', items: skills.softSkills, accentColor: '#fde68a' },
   ];
 
   const coreSkills = [

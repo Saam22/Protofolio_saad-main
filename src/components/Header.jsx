@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes, FaMoon, FaSun, FaCode } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { scrollToSection, useActiveSection } from '../App';
+import useBodyScrollLock from '../hooks/useBodyScrollLock';
 import './Header.css';
 
 const links = [
@@ -14,17 +15,27 @@ const links = [
 ];
 const linkIds = links.map((l) => l.id);
 
+const getInitialTheme = () => {
+  try {
+    return localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+  } catch {
+    return 'dark';
+  }
+};
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(getInitialTheme);
   const activeSection = useActiveSection(linkIds);
 
+  useBodyScrollLock(isOpen);
+
   useEffect(() => {
-    const saved = localStorage.getItem('theme') || 'dark';
-    setTheme(saved);
-    document.documentElement.setAttribute('data-theme', saved);
-  }, []);
+    document.documentElement.setAttribute('data-theme', theme);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#050507' : '#FFFEFC');
+  }, [theme]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -33,17 +44,30 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
+    if (!isOpen) return undefined;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setIsOpen(false);
     };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, [isOpen]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 900) setIsOpen(false);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
-    localStorage.setItem('theme', next);
-    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      /* storage may be unavailable — theme still applies for this session */
+    }
   };
 
   const handleClick = (e, id) => {
@@ -53,13 +77,9 @@ const Header = () => {
   };
 
   return (
-    <motion.header
-      className={`header${scrolled ? ' scrolled' : ''}`}
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-    >
-      <nav className="navbar container">
+    <header className={`header${scrolled ? ' scrolled' : ''}`}>
+      <nav className="navbar container" aria-label="Primary">
+
         <motion.a
           href="#hero"
           className="nav-brand"
@@ -71,7 +91,7 @@ const Header = () => {
           <FaCode className="nav-brand-icon" /> SM<span>.</span>
         </motion.a>
 
-        <ul className={`nav-menu${isOpen ? ' active' : ''}`}>
+        <ul id="primary-navigation" className={`nav-menu${isOpen ? ' active' : ''}`}>
           {links.map((l, i) => (
             <motion.li
               key={l.name}
@@ -96,7 +116,7 @@ const Header = () => {
           <motion.button
             onClick={toggleTheme}
             className="theme-btn"
-            aria-label="Toggle theme"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
             whileHover={{ scale: 1.1, borderColor: 'var(--p)', color: 'var(--p)' }}
             whileTap={{ scale: 0.9 }}
           >
@@ -113,7 +133,9 @@ const Header = () => {
           <motion.button
             className="nav-toggle"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Menu"
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+            aria-controls="primary-navigation"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -135,7 +157,7 @@ const Header = () => {
           />
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 };
 

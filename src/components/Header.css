@@ -4,7 +4,12 @@
   width: 100%;
   z-index: 1000;
   background: transparent;
+  animation: headerDrop 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
   transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+@keyframes headerDrop {
+  from { top: -90px; opacity: 0; }
+  to { top: 0; opacity: 1; }
 }
 .header.scrolled {
   background: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -177,7 +182,9 @@
     border-left: 1px solid var(--bd);
     transform: translateX(100%);
     opacity: 0;
-    transition: transform 0.4s var(--ease-out), opacity 0.4s var(--ease-out);
+    visibility: hidden;
+    overscroll-behavior: contain;
+    transition: transform 0.4s var(--ease-out), opacity 0.4s var(--ease-out), visibility 0s linear 0.4s;
     pointer-events: none;
     border-radius: 0;
     box-shadow: -8px 0 32px rgba(0,0,0,0.2);
@@ -185,7 +192,9 @@
   .nav-menu.active {
     transform: translateX(0);
     opacity: 1;
+    visibility: visible;
     pointer-events: all;
+    transition: transform 0.4s var(--ease-out), opacity 0.4s var(--ease-out), visibility 0s;
   }
   .nav-link {
     font-size: 1rem;

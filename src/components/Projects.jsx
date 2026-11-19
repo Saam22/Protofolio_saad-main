@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
 import {
@@ -8,7 +9,33 @@ import {
 } from 'react-icons/fa';
 import { staggerContainer, staggerItemScale, springHover } from '../animations';
 import useSpotlight from '../hooks/useSpotlight';
+import useBodyScrollLock from '../hooks/useBodyScrollLock';
 import './Projects.css';
+
+const hasLivePreview = (project) => Boolean(project.live && project.live !== '#');
+const hasScreenshots = (project) => Boolean(project.screenshots && project.screenshots.length > 0);
+
+const useModalBehavior = (onClose, modalRef) => {
+  useBodyScrollLock(true);
+
+  useEffect(() => {
+    const previouslyFocused = document.activeElement;
+    const timer = setTimeout(() => modalRef.current?.focus(), 0);
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('keydown', onKeyDown);
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
+      }
+    };
+  }, [onClose, modalRef]);
+};
 
 const typeConfig = {
   Frontend: { cls: 'frontend', color: '#818cf8', glow: 'rgba(129,140,248,0.35)', icon: <FaStar /> },
@@ -94,15 +121,13 @@ const ScreenshotCarousel = ({ screenshots }) => {
 /* ─── Project Preview Modal (full-screen) ───────── */
 const ProjectPreviewModal = ({ project, onClose }) => {
   const iframeRef = useRef(null);
+  const modalRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
 
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
-  }, []);
+  useModalBehavior(onClose, modalRef);
 
-  const hasLive = project.live && project.live !== '#';
+  const hasLive = hasLivePreview(project);
 
   return (
     <motion.div
@@ -114,7 +139,12 @@ const ProjectPreviewModal = ({ project, onClose }) => {
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <motion.div
+        ref={modalRef}
         className={`preview-modal${fullscreen ? ' fullscreen' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${project.title} preview`}
+        tabIndex={-1}
         initial={{ opacity: 0, scale: 0.85, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.85, y: 40 }}

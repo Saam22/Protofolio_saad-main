@@ -16,11 +16,12 @@ import { useRef, useCallback, useEffect } from 'react';
 const useSpotlight = () => {
   const ref = useRef(null);
   const frame = useRef(0);
+  const target = useRef(null);
   const point = useRef({ x: 0, y: 0 });
 
   const flush = useCallback(() => {
     frame.current = 0;
-    const el = ref.current;
+    const el = target.current || ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
     el.style.setProperty('--mx', `${point.current.x - rect.left}px`);
@@ -30,6 +31,7 @@ const useSpotlight = () => {
   const onPointerMove = useCallback(
     (e) => {
       if (e.pointerType && e.pointerType !== 'mouse') return;
+      target.current = e.currentTarget;
       point.current = { x: e.clientX, y: e.clientY };
       if (!frame.current) frame.current = requestAnimationFrame(flush);
     },

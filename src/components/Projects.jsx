@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
 import {
@@ -13,7 +12,6 @@ import useBodyScrollLock from '../hooks/useBodyScrollLock';
 import './Projects.css';
 
 const hasLivePreview = (project) => Boolean(project.live && project.live !== '#');
-const hasScreenshots = (project) => Boolean(project.screenshots && project.screenshots.length > 0);
 
 const useModalBehavior = (onClose, modalRef) => {
   useBodyScrollLock(true);
